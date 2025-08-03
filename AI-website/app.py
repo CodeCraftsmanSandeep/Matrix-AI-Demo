@@ -111,7 +111,7 @@ if st.button('Analyze'):
     prompt += "My Application user input: " + user_query + "\n\n"
 
     prompt += "My instructions to you:\n"
-    prompt += "i) Generate " + str(num_columns) + " columns names for my matrix AI, where first column should be (Item), last column should be (what is missing?), and reamining columns should be top essentials columns to compare the content in files" + "\n"
+    prompt += "i) Generate " + str(num_columns) + " columns names for my matrix AI, where first column should be (Item), last column should be (What is missing?), and reamining columns should be top essentials columns to compare the content in files" + "\n"
     prompt += "ii) Your output should not have any other content, only csv, I will directly take your output to parse into pandas data frame" + "\n"
     prompt += "iii) Include analaysis + data in each cell, be crisp and concise, do not club different things in one column, take top columns and take user request into consideration" + "\n"
 
