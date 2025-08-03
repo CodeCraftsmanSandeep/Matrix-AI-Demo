@@ -6,6 +6,14 @@ import os
 import io
 from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode, GridUpdateMode
 
+st.markdown("""
+    <style>
+        .block-container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.markdown(
     """
@@ -141,4 +149,4 @@ if st.button('Analyze'):
 
     df = pd.read_csv(io.StringIO(csv_output))
 
-    st.write(df)
+    st.dataframe(df, use_container_width=True)
