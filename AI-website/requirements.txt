@@ -1,0 +1,16 @@
+# requirements.txt
+
+# core framework
+streamlit>=1.24.0
+
+# data handling
+numpy>=1.24.0
+pandas>=2.0.0
+
+# your AI client
+groq>=0.1.0              # or whatever the latest groq-python SDK version is
+
+# file streaming / IO (built-in – no extra package)
+
+# interactive grid
+streamlit-aggrid>=0.4.0  # gives AgGrid, GridOptionsBuilder, GridUpdateMode, etc.
