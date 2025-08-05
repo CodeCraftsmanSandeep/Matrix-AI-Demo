@@ -12,9 +12,10 @@
 
 * 🧠 **Matrix Generation**
   For each document and sub-query pair, a corresponding cell is generated containing the LLM’s response.
-
+  
+<!-- 
 * 📌 **RAG-Style Citations**
-  Incorporates a Retrieval-Augmented Generation (RAG)-like framework to cite source documents in the output.
+  Incorporates a Retrieval-Augmented Generation (RAG)-like framework to cite source documents in the output. -->
 
 ---
 
