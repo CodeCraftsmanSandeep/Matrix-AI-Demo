@@ -4,6 +4,7 @@ import pandas as pd
 from groq import Groq
 import os
 import io
+import re
 from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode, GridUpdateMode
 
 st.markdown("""
@@ -122,6 +123,7 @@ if st.button('Analyze'):
     prompt += "i) Generate " + str(num_columns) + " columns names for my matrix AI, where first column should be (Item), last column should be (What is missing?), and reamining columns should be top essentials columns to compare the content in files" + "\n"
     prompt += "ii) Your output should not have any other content, only csv, I will directly take your output to parse into pandas data frame" + "\n"
     prompt += "iii) Include analaysis + data in each cell, be crisp and concise, do not club different things in one column, take top columns and take user request into consideration" + "\n"
+    prompt += "iv) type --- before and after csv content, so that I will parse your outpu, there should only one csv content to parse"
 
     groq_api_key = os.getenv("GROQ_API_KEY")
     client = Groq(api_key = groq_api_key)
@@ -140,13 +142,21 @@ if st.button('Analyze'):
         stop=None, 
     )
 
-    # Collect streamed chunks into a single string
+    # Collect streamed content
     csv_output = ""
     for chunk in completion:
         content = chunk.choices[0].delta.content
         if content:
             csv_output += content
 
-    df = pd.read_csv(io.StringIO(csv_output))
-
-    st.dataframe(df, use_container_width=True)
+    # Extract CSV content between --- and ---
+    match = re.search(r"---\s*(.*?)\s*---", csv_output, re.DOTALL)
+    if match:
+        csv_data = match.group(1)
+        try:
+            df = pd.read_csv(io.StringIO(csv_data))
+            st.dataframe(df, use_container_width=True)
+        except Exception as e:
+            st.error(f"Failed to parse CSV from LLM: {e}")
+    else:
+        st.warning("No CSV data found between --- markers.")
